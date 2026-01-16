@@ -1,1 +1,364 @@
 <h1>My website</h1>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM 3270 // LINUX COMMAND DATABASE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --phosphor-primary: #33ff33;
+            --phosphor-dim: #1a801a;
+            --bg-color: #050505;
+            --screen-curve: perspective(1000px) rotateX(0.5deg);
+        }
+
+        body {
+            background-color: #000;
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            font-family: 'VT323', monospace;
+            overflow-y: scroll;
+        }
+
+        /* The Main Terminal Container */
+        .terminal-case {
+            width: 100%;
+            max-width: 1000px;
+            background-color: var(--bg-color);
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 
+                0 0 10px rgba(0,0,0,0.9),
+                inset 0 0 100px rgba(0,0,0,0.9);
+            transform: var(--screen-curve);
+        }
+
+        /* Screen Glow & Text Styling */
+        .screen-content {
+            color: var(--phosphor-primary);
+            text-shadow: 0 0 4px var(--phosphor-dim), 0 0 2px var(--phosphor-primary);
+            font-size: 1.2rem;
+            line-height: 1.2;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Headers */
+        h1 {
+            text-align: center;
+            border-bottom: 2px dashed var(--phosphor-primary);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            background-color: var(--phosphor-primary);
+            color: #000;
+            padding: 2px 10px;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            display: inline-block;
+            text-transform: uppercase;
+            box-shadow: 0 0 5px var(--phosphor-primary);
+            font-weight: bold;
+        }
+
+        /* Data Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th {
+            text-align: left;
+            border-bottom: 1px solid var(--phosphor-dim);
+            padding: 8px;
+            text-transform: uppercase;
+            color: #ccffcc;
+        }
+
+        td {
+            padding: 6px 8px;
+            vertical-align: top;
+            border-bottom: 1px dotted #1a401a;
+        }
+
+        td:first-child {
+            font-weight: bold;
+            color: #fff;
+            white-space: nowrap;
+        }
+
+        td:nth-child(3) {
+            color: #aaffaa;
+            font-style: italic;
+        }
+
+        /* Scanlines Overlay */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Screen Flicker Animation */
+        @keyframes flicker {
+            0% { opacity: 0.97; }
+            5% { opacity: 0.95; }
+            10% { opacity: 0.9; }
+            15% { opacity: 0.95; }
+            20% { opacity: 0.99; }
+            50% { opacity: 0.95; }
+            80% { opacity: 0.9; }
+            100% { opacity: 0.97; }
+        }
+
+        .flicker-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(18, 16, 16, 0.1);
+            animation: flicker 0.15s infinite;
+            pointer-events: none;
+            z-index: 11;
+        }
+
+        /* Status Bar at Bottom */
+        .status-bar {
+            margin-top: 40px;
+            border-top: 2px solid var(--phosphor-primary);
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background-color: var(--phosphor-primary);
+            animation: blink 1s step-end infinite;
+            vertical-align: sub;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Scrollbar styling for Webkit */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--phosphor-dim);
+            border: 1px solid #000;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="scanlines"></div>
+    <div class="flicker-layer"></div>
+
+    <div class="terminal-case">
+        <div class="screen-content">
+            <h1>MAINFRAME ACCESS: LINUX COMMANDS</h1>
+            
+            <p>SYSTEM READY.<br>LOADED MODULE: TOP 100 UTILITIES.<br>DISPLAY MODE: 3270 EMULATION.</p>
+
+            <h2>01. FILE & DIRECTORY MANAGEMENT</h2>
+            <table>
+                <tr><th>CMD</th><th>DESCRIPTION</th><th>USAGE</th></tr>
+                <tr><td>ls</td><td>List contents</td><td>ls -lah</td></tr>
+                <tr><td>cd</td><td>Change dir</td><td>cd /var/log</td></tr>
+                <tr><td>pwd</td><td>Print working dir</td><td>pwd</td></tr>
+                <tr><td>mkdir</td><td>Make directory</td><td>mkdir -p a/b/c</td></tr>
+                <tr><td>rmdir</td><td>Remove empty dir</td><td>rmdir folder</td></tr>
+                <tr><td>rm</td><td>Remove file/dir</td><td>rm -rf folder</td></tr>
+                <tr><td>cp</td><td>Copy</td><td>cp source dest</td></tr>
+                <tr><td>mv</td><td>Move/Rename</td><td>mv old new</td></tr>
+                <tr><td>touch</td><td>Create/Update</td><td>touch file.txt</td></tr>
+                <tr><td>file</td><td>Check file type</td><td>file data.tar</td></tr>
+                <tr><td>locate</td><td>Find by name</td><td>locate *.conf</td></tr>
+                <tr><td>find</td><td>Search hierarchy</td><td>find . -name "*.log"</td></tr>
+                <tr><td>ln</td><td>Create link</td><td>ln -s file link</td></tr>
+                <tr><td>unlink</td><td>Remove link</td><td>unlink linkname</td></tr>
+                <tr><td>realpath</td><td>Absolute path</td><td>realpath ./file</td></tr>
+            </table>
+
+            <h2>02. TEXT PROCESSING</h2>
+            <table>
+                <tr><th>CMD</th><th>DESCRIPTION</th><th>USAGE</th></tr>
+                <tr><td>cat</td><td>Display file</td><td>cat file.txt</td></tr>
+                <tr><td>tac</td><td>Reverse cat</td><td>tac file.txt</td></tr>
+                <tr><td>head</td><td>First lines</td><td>head -n 5 file</td></tr>
+                <tr><td>tail</td><td>Last lines</td><td>tail -f logfile</td></tr>
+                <tr><td>less</td><td>Pager view</td><td>less file.txt</td></tr>
+                <tr><td>more</td><td>Old pager</td><td>more file.txt</td></tr>
+                <tr><td>grep</td><td>Search text</td><td>grep "error" log</td></tr>
+                <tr><td>sed</td><td>Stream editor</td><td>sed 's/foo/bar/'</td></tr>
+                <tr><td>awk</td><td>Text processor</td><td>awk '{print $1}'</td></tr>
+                <tr><td>cut</td><td>Cut columns</td><td>cut -d, -f1</td></tr>
+                <tr><td>tr</td><td>Translate chars</td><td>tr a-z A-Z</td></tr>
+                <tr><td>sort</td><td>Sort lines</td><td>sort -n file</td></tr>
+                <tr><td>uniq</td><td>Unique lines</td><td>uniq -c</td></tr>
+                <tr><td>wc</td><td>Count words</td><td>wc -l file</td></tr>
+                <tr><td>diff</td><td>Compare files</td><td>diff f1 f2</td></tr>
+                <tr><td>tee</td><td>Redirect output</td><td>echo "hi" | tee f</td></tr>
+            </table>
+
+            <h2>03. PERMISSIONS & USERS</h2>
+            <table>
+                <tr><th>CMD</th><th>DESCRIPTION</th><th>USAGE</th></tr>
+                <tr><td>chmod</td><td>Change mode</td><td>chmod 755 file</td></tr>
+                <tr><td>chown</td><td>Change owner</td><td>chown user file</td></tr>
+                <tr><td>chgrp</td><td>Change group</td><td>chgrp admin file</td></tr>
+                <tr><td>useradd</td><td>Create user</td><td>useradd -m bob</td></tr>
+                <tr><td>usermod</td><td>Modify user</td><td>usermod -aG sudo</td></tr>
+                <tr><td>userdel</td><td>Delete user</td><td>userdel -r bob</td></tr>
+                <tr><td>passwd</td><td>Change pass</td><td>passwd bob</td></tr>
+                <tr><td>su</td><td>Switch user</td><td>su -</td></tr>
+                <tr><td>sudo</td><td>Superuser do</td><td>sudo apt update</td></tr>
+                <tr><td>whoami</td><td>Current user</td><td>whoami</td></tr>
+                <tr><td>id</td><td>User details</td><td>id bob</td></tr>
+            </table>
+
+            <h2>04. PROCESS MANAGEMENT</h2>
+            <table>
+                <tr><th>CMD</th><th>DESCRIPTION</th><th>USAGE</th></tr>
+                <tr><td>ps</td><td>Snapshot procs</td><td>ps aux</td></tr>
+                <tr><td>top</td><td>View procs</td><td>top</td></tr>
+                <tr><td>htop</td><td>Interactive view</td><td>htop</td></tr>
+                <tr><td>kill</td><td>Kill PID</td><td>kill -9 1234</td></tr>
+                <tr><td>pkill</td><td>Kill by name</td><td>pkill firefox</td></tr>
+                <tr><td>killall</td><td>Kill all named</td><td>killall httpd</td></tr>
+                <tr><td>bg</td><td>Background</td><td>bg %1</td></tr>
+                <tr><td>fg</td><td>Foreground</td><td>fg %1</td></tr>
+                <tr><td>jobs</td><td>List jobs</td><td>jobs -l</td></tr>
+                <tr><td>nice</td><td>Set priority</td><td>nice -n 10 cmd</td></tr>
+                <tr><td>renice</td><td>Change prio</td><td>renice 5 -p 123</td></tr>
+                <tr><td>nohup</td><td>No hangup</td><td>nohup cmd &</td></tr>
+                <tr><td>systemctl</td><td>Service ctl</td><td>systemctl start httpd</td></tr>
+            </table>
+
+            <h2>05. NETWORKING</h2>
+            <table>
+                <tr><th>CMD</th><th>DESCRIPTION</th><th>USAGE</th></tr>
+                <tr><td>ping</td><td>Check host</td><td>ping 8.8.8.8</td></tr>
+                <tr><td>ip</td><td>IP utility</td><td>ip a</td></tr>
+                <tr><td>ifconfig</td><td>Interface config</td><td>ifconfig</td></tr>
+                <tr><td>netstat</td><td>Net stats</td><td>netstat -tuln</td></tr>
+                <tr><td>ss</td><td>Socket stats</td><td>ss -tuln</td></tr>
+                <tr><td>traceroute</td><td>Trace path</td><td>traceroute google.com</td></tr>
+                <tr><td>dig</td><td>DNS lookup</td><td>dig domain.com</td></tr>
+                <tr><td>nslookup</td><td>Name server</td><td>nslookup domain</td></tr>
+                <tr><td>curl</td><td>Transfer URL</td><td>curl -I url</td></tr>
+                <tr><td>wget</td><td>Download</td><td>wget url</td></tr>
+                <tr><td>ssh</td><td>Remote login</td><td>ssh user@host</td></tr>
+                <tr><td>scp</td><td>Secure copy</td><td>scp file user@host:</td></tr>
+                <tr><td>rsync</td><td>Remote sync</td><td>rsync -av src/ dst/</td></tr>
+                <tr><td>nc</td><td>Netcat</td><td>nc -l 8080</td></tr>
+                <tr><td>ufw</td><td>Firewall</td><td>ufw allow 22</td></tr>
+            </table>
+
+            <h2>06. SYSTEM & HARDWARE</h2>
+            <table>
+                <tr><th>CMD</th><th>DESCRIPTION</th><th>USAGE</th></tr>
+                <tr><td>uname</td><td>System info</td><td>uname -a</td></tr>
+                <tr><td>hostname</td><td>Show hostname</td><td>hostname</td></tr>
+                <tr><td>uptime</td><td>Run time</td><td>uptime</td></tr>
+                <tr><td>free</td><td>Memory usage</td><td>free -h</td></tr>
+                <tr><td>df</td><td>Disk free</td><td>df -h</td></tr>
+                <tr><td>du</td><td>Disk used</td><td>du -sh folder</td></tr>
+                <tr><td>lscpu</td><td>CPU info</td><td>lscpu</td></tr>
+                <tr><td>lsblk</td><td>Block devices</td><td>lsblk</td></tr>
+                <tr><td>lshw</td><td>Hardware list</td><td>sudo lshw</td></tr>
+                <tr><td>dmesg</td><td>Kernel msgs</td><td>dmesg | grep usb</td></tr>
+            </table>
+
+            <h2>07. ARCHIVES & COMPRESSION</h2>
+            <table>
+                <tr><th>CMD</th><th>DESCRIPTION</th><th>USAGE</th></tr>
+                <tr><td>tar</td><td>Tape archiver</td><td>tar -czf a.tar.gz .</td></tr>
+                <tr><td>zip</td><td>Zip files</td><td>zip -r a.zip .</td></tr>
+                <tr><td>unzip</td><td>Unzip files</td><td>unzip a.zip</td></tr>
+                <tr><td>gzip</td><td>Compress</td><td>gzip file</td></tr>
+                <tr><td>gunzip</td><td>Decompress</td><td>gunzip file.gz</td></tr>
+                <tr><td>bzip2</td><td>High compress</td><td>bzip2 file</td></tr>
+            </table>
+
+            <h2>08. DISK MANAGEMENT</h2>
+            <table>
+                <tr><th>CMD</th><th>DESCRIPTION</th><th>USAGE</th></tr>
+                <tr><td>mount</td><td>Mount FS</td><td>mount /dev/sdX /mnt</td></tr>
+                <tr><td>umount</td><td>Unmount</td><td>umount /mnt</td></tr>
+                <tr><td>fdisk</td><td>Partition table</td><td>fdisk -l</td></tr>
+                <tr><td>mkfs</td><td>Format disk</td><td>mkfs.ext4 /dev/sdX</td></tr>
+                <tr><td>fsck</td><td>Check disk</td><td>fsck /dev/sdX</td></tr>
+                <tr><td>dd</td><td>Disk copy</td><td>dd if=/dev/a of=/dev/b</td></tr>
+            </table>
+
+            <h2>09. MISC & SHELL</h2>
+            <table>
+                <tr><th>CMD</th><th>DESCRIPTION</th><th>USAGE</th></tr>
+                <tr><td>history</td><td>Cmd history</td><td>history</td></tr>
+                <tr><td>clear</td><td>Clear screen</td><td>clear</td></tr>
+                <tr><td>echo</td><td>Print text</td><td>echo "Hello"</td></tr>
+                <tr><td>export</td><td>Set env var</td><td>export VAR=val</td></tr>
+                <tr><td>alias</td><td>Create alias</td><td>alias l='ls -l'</td></tr>
+                <tr><td>unalias</td><td>Remove alias</td><td>unalias l</td></tr>
+                <tr><td>man</td><td>Manual</td><td>man ls</td></tr>
+                <tr><td>whatis</td><td>Short desc</td><td>whatis cat</td></tr>
+                <tr><td>which</td><td>Locate cmd</td><td>which grep</td></tr>
+                <tr><td>date</td><td>Date/Time</td><td>date</td></tr>
+                <tr><td>cal</td><td>Calendar</td><td>cal</td></tr>
+                <tr><td>bc</td><td>Calculator</td><td>echo "1+1" | bc</td></tr>
+                <tr><td>time</td><td>Measure time</td><td>time ls</td></tr>
+                <tr><td>watch</td><td>Loop cmd</td><td>watch date</td></tr>
+                <tr><td>shutdown</td><td>Power off</td><td>shutdown now</td></tr>
+                <tr><td>reboot</td><td>Restart</td><td>reboot</td></tr>
+                <tr><td>exit</td><td>Exit shell</td><td>exit</td></tr>
+            </table>
+
+            <div class="status-bar">
+                <span>USER: ROOT</span>
+                <span>TTY: 1</span>
+                <span>STATUS: ACTIVE <span class="cursor"></span></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
