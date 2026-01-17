@@ -36,6 +36,8 @@
         /* NAVIGATION LINK STYLING */
         .nav-header {
             margin-bottom: 10px;
+            border-bottom: 1px dashed #1a331a;
+            padding-bottom: 10px;
         }
 
         a.back-link {
@@ -45,13 +47,15 @@
             padding: 2px 5px;
             border: 1px solid transparent;
             text-transform: uppercase;
+            display: inline-block;
         }
 
-        a.back-link:hover {
+        a.back-link:hover, a.back-link:focus {
             background-color: var(--terminal-green);
             color: #000;
             cursor: pointer;
             font-weight: bold;
+            outline: none;
         }
 
         h1 {
@@ -64,7 +68,7 @@
             font-weight: normal;
             letter-spacing: 2px;
             text-shadow: none;
-            margin-top: 0;
+            margin-top: 10px;
         }
 
         h2 {
@@ -143,11 +147,12 @@
         /* Blinking Block Cursor */
         .cursor {
             display: inline-block;
-            width: 10px;
-            height: 18px;
+            width: 12px;
+            height: 20px;
             background-color: var(--terminal-green);
             animation: blink 1s step-end infinite;
             vertical-align: sub;
+            margin-left: 2px;
         }
 
         @keyframes blink {
@@ -161,7 +166,7 @@
 <div class="terminal-container">
     
     <div class="nav-header">
-        <a href="index.html" class="back-link">&lt;&lt; RETURN TO INDEX</a>
+        <a href="index.html" class="back-link" id="back-link">[0] &lt;&lt; RETURN TO INDEX</a>
     </div>
 
     <h1>LINUX COMMAND DATABASE</h1>
@@ -315,10 +320,59 @@
     <div class="status-bar">
         <span>USER: NUMBER SIX</span>
         <span>TTY: 1</span>
-        <span>STATUS: READY <span class="cursor"></span></span>
+        <span>INPUT: <span id="input-buffer"></span><span class="cursor"></span></span>
     </div>
 
 </div>
+
+<script>
+    // --- KEYBOARD NAVIGATION SCRIPT ---
+
+    // Define commands
+    // 0 or 00 triggers the back link
+    const keyMap = {
+        '0': 'back-link',
+        '00': 'back-link'
+    };
+
+    let buffer = "";
+    let bufferTimeout;
+    const displayElement = document.getElementById('input-buffer');
+
+    document.addEventListener('keydown', function(event) {
+        // Only accept numbers
+        if (!/^\d$/.test(event.key)) return;
+
+        // Add key to buffer
+        buffer += event.key;
+        
+        // Update the screen
+        displayElement.textContent = buffer;
+
+        // Clear existing timeout
+        clearTimeout(bufferTimeout);
+
+        // Check if buffer matches a known command
+        if (keyMap[buffer]) {
+            // Visual feedback delay
+            setTimeout(() => {
+                document.getElementById(keyMap[buffer]).click();
+                resetBuffer();
+            }, 150);
+        } else if (buffer.length >= 2) {
+            // If buffer is 2 digits and no match, reset
+            setTimeout(resetBuffer, 500);
+        } else {
+            // Set a timeout to clear buffer
+            bufferTimeout = setTimeout(resetBuffer, 2000);
+        }
+    });
+
+    function resetBuffer() {
+        buffer = "";
+        displayElement.textContent = "";
+    }
+</script>
 
 </body>
 </html>
