@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IBM 3270 // LINUX COMMANDS // SHARP</title>
+    <title>IBM 3270 // LINUX COMMAND DATABASE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@
             text-transform: uppercase;
             font-weight: normal;
             letter-spacing: 2px;
-            text-shadow: none; /* No blur */
+            text-shadow: none;
         }
 
         h2 {
@@ -52,9 +52,9 @@
             margin-bottom: 5px;
             display: inline-block;
             text-transform: uppercase;
-            font-weight: bold;
+            font-weight: normal; /* Changed to normal */
             font-size: 1.4rem;
-            text-shadow: none; /* No blur */
+            text-shadow: none;
         }
 
         table {
@@ -71,20 +71,20 @@
             text-transform: uppercase;
             font-weight: normal;
             font-size: 1.2rem;
-            text-shadow: none; /* No blur */
+            text-shadow: none;
         }
 
         td {
-            padding: 4px 5px; /* Reduced spacing */
+            padding: 4px 5px;
             border-bottom: 1px solid #1a1a1a;
             font-size: 1.2rem;
-            text-shadow: none; /* No blur */
+            text-shadow: none;
         }
 
         /* Column 1: Command */
         td:first-child {
             color: #fff;
-            font-weight: bold;
+            font-weight: normal; /* Changed to normal */
             width: 12%;
             white-space: nowrap;
         }
@@ -97,7 +97,6 @@
 
         /* Column 3: Usage Example */
         td:nth-child(3) {
-            /* Now exactly the same style as Description */
             color: var(--terminal-green);
             font-family: 'VT323', monospace; 
             width: 44%;
@@ -286,7 +285,7 @@
     </table>
 
     <div class="status-bar">
-        <span>USER: ROOT</span>
+        <span>USER: NUMBER SIX</span>
         <span>TTY: 1</span>
         <span>STATUS: READY <span class="cursor"></span></span>
     </div>
