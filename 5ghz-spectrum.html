@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM 3270 // 5GHZ SPECTRUM UK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --terminal-green: #33ff33; /* Standard Green */
+            --terminal-bg: #000000;    /* Pure Black */
+            --border-dim: #1a4d1a;
+        }
+
+        body {
+            background-color: #111;
+            margin: 0;
+            padding: 20px;
+            font-family: 'VT323', monospace;
+            display: flex;
+            justify-content: center;
+        }
+
+        .terminal-container {
+            width: 100%;
+            max-width: 1200px;
+            background-color: var(--terminal-bg);
+            border: 4px solid #333;
+            padding: 20px;
+            box-shadow: 0 0 0 2px #000; /* sharp outline */
+            position: relative;
+        }
+
+        /* NAVIGATION LINK STYLING */
+        .nav-header {
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #1a331a;
+            padding-bottom: 10px;
+        }
+
+        a.back-link {
+            color: var(--terminal-green);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 2px 5px;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        a.back-link:hover, a.back-link:focus {
+            background-color: var(--terminal-green);
+            color: #000;
+            cursor: pointer;
+            font-weight: bold;
+            outline: none;
+        }
+
+        h1 {
+            color: var(--terminal-green);
+            text-align: center;
+            border-bottom: 2px solid var(--terminal-green);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: normal;
+            letter-spacing: 2px;
+            text-shadow: none;
+            margin-top: 10px;
+        }
+
+        h2 {
+            background-color: var(--terminal-green);
+            color: #000;
+            padding: 4px 10px;
+            margin-top: 35px;
+            margin-bottom: 5px;
+            display: inline-block;
+            text-transform: uppercase;
+            font-weight: normal;
+            font-size: 1.4rem;
+            text-shadow: none;
+        }
+
+        /* DATA TABLES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        th {
+            text-align: left;
+            border-bottom: 2px solid var(--border-dim);
+            padding: 8px 5px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: normal;
+            font-size: 1.2rem;
+            text-shadow: none;
+        }
+
+        td {
+            padding: 4px 5px;
+            border-bottom: 1px solid #1a1a1a;
+            font-size: 1.2rem;
+            text-shadow: none;
+            vertical-align: top;
+        }
+
+        /* Column 1: Highlighted */
+        td:first-child {
+            color: #fff;
+            font-weight: normal;
+            width: 15%;
+            white-space: nowrap;
+        }
+
+        /* General Text Color */
+        td {
+            color: var(--terminal-green);
+        }
+
+        /* Matrix Table Specifics */
+        .matrix-table td:first-child {
+            width: 10%;
+        }
+        .matrix-table td:nth-child(2),
+        .matrix-table td:nth-child(3),
+        .matrix-table td:nth-child(4) {
+            width: 30%;
+        }
+
+        /* Section for Notes/References (Lists) */
+        ul {
+            list-style-type: square;
+            color: var(--terminal-green);
+            padding-left: 20px;
+            font-size: 1.2rem;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        
+        .alert-text {
+            color: #fff;
+            background-color: #331111; /* Subtle red bg for alerts */
+            padding: 2px 5px;
+        }
+
+        .status-bar {
+            margin-top: 40px;
+            border-top: 1px solid var(--terminal-green);
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--terminal-green);
+            font-size: 1.1rem;
+        }
+
+        /* Blinking Block Cursor */
+        .cursor {
+            display: inline-block;
+            width: 12px;
+            height: 20px;
+            background-color: var(--terminal-green);
+            animation: blink 1s step-end infinite;
+            vertical-align: sub;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="terminal-container">
+    
+    <div class="nav-header">
+        <a href="index.html" class="back-link" id="back-link">[0] &lt;&lt; RETURN TO INDEX</a>
+    </div>
+
+    <h1>UK 5GHZ WLAN SPECTRUM (AUG 2017)</h1>
+    
+    <h2>01. BAND A (UNII-1 & UNII-2A)</h2>
+    <p style="color: #fff; margin-bottom: 0;">FREQUENCY: 5150 - 5350 MHz // INDOOR USE ONLY</p>
+    <table>
+        <tr><th>CHANNELS (20MHz)</th><th>CENTRE FREQ (MHz)</th><th>REGULATIONS / LIMITS</th></tr>
+        <tr><td>36, 40, 44, 48</td><td>5180 - 5240</td><td>UNII-1 / Max EIRP: 200mW</td></tr>
+        <tr><td>52, 56, 60, 64</td><td>5260 - 5320</td><td>UNII-2a / Max EIRP: 200mW / DFS Required</td></tr>
+    </table>
+
+    <h2>02. BAND B (UNII-2C)</h2>
+    <p style="color: #fff; margin-bottom: 0;">FREQUENCY: 5470 - 5725 MHz // INDOOR & OUTDOOR</p>
+    <table>
+        <tr><th>CHANNELS (20MHz)</th><th>CENTRE FREQ (MHz)</th><th>REGULATIONS / LIMITS</th></tr>
+        <tr><td>100, 104, 108, 112</td><td>5500 - 5560</td><td>Max EIRP: 1W (30dBm)</td></tr>
+        <tr><td>116, 120, 124, 128</td><td>5580 - 5640</td><td>DFS (Dynamic Freq Selection) Required</td></tr>
+        <tr><td>132, 136, 140, 144</td><td>5660 - 5720</td><td><span class="alert-text">** WEATHER RADAR IMPACT (CH 120-128)</span></td></tr>
+    </table>
+
+    <h2>03. BAND C (UNII-3 / 5.8GHZ)</h2>
+    <p style="color: #fff; margin-bottom: 0;">FREQUENCY: 5725 - 5850 MHz // LIGHT LICENSING MAY APPLY</p>
+    <table>
+        <tr><th>CHANNELS (20MHz)</th><th>CENTRE FREQ (MHz)</th><th>REGULATIONS / LIMITS</th></tr>
+        <tr><td>149, 153, 157</td><td>5745 - 5785</td><td>Max EIRP: 200mW (23dBm)</td></tr>
+        <tr><td>161, 165</td><td>5805 - 5825</td><td>Indoor/Outdoor (No Fixed Outdoor without license)</td></tr>
+    </table>
+
+    <h2>04. CHANNEL WIDTH ALLOCATION</h2>
+    <p style="color: #fff; margin-bottom: 0;">MATRIX OF AVAILABLE CENTRE CHANNELS FOR BONDING</p>
+    <table class="matrix-table">
+        <tr>
+            <th>WIDTH</th>
+            <th>BAND A (INDOOR)</th>
+            <th>BAND B (DFS)</th>
+            <th>BAND C (LIGHT LICENCE)</th>
+        </tr>
+        <tr>
+            <td>40 MHz</td>
+            <td>38, 46, 54, 62</td>
+            <td>102, 110, 118, 126, 134, 142</td>
+            <td>151, 159</td>
+        </tr>
+        <tr>
+            <td>80 MHz</td>
+            <td>42, 58</td>
+            <td>106, 122, 138</td>
+            <td>155</td>
+        </tr>
+        <tr>
+            <td>160 MHz</td>
+            <td>50</td>
+            <td>114</td>
+            <td>N/A (INSUFFICIENT SPECTRUM)</td>
+        </tr>
+    </table>
+
+    <h2>05. NOTES & ALERTS</h2>
+    <ul>
+        <li><strong>BAND C:</strong> Already used for lightly licensed, higher powered fixed outdoor systems. Licensing still required for fixed outdoor systems (Ref: IR 2007).</li>
+        <li><strong>WEATHER RADAR:</strong> Channels 120-128 are not available on some vendor systems due to 10-minute CAC (Channel Availability Check) restrictions.</li>
+        <li><strong>FUTURE ALLOCATION:</strong> Further spectrum allocations unlikely before WRC 2019.</li>
+    </ul>
+
+    <h2>06. REFERENCE DOCUMENTS</h2>
+    <table>
+        <tr><th>SOURCE</th><th>DOCUMENT TITLE</th></tr>
+        <tr><td>OFCOM</td><td>VNS - Voluntary National Specification 2030/8/3</td></tr>
+        <tr><td>OFCOM</td><td>UK Interface Requirement 2006 (RLAN)</td></tr>
+        <tr><td>OFCOM</td><td>UK Interface Requirement 2007 (Fixed Broadband)</td></tr>
+        <tr><td>ETSI</td><td>EN 301 893 V2.1.1 (2017-05)</td></tr>
+        <tr><td>ETSI</td><td>EN 302 502 V2.1.1 (2017-03)</td></tr>
+    </table>
+
+    <div class="status-bar">
+        <span>SOURCE: WIFINIGEL.COM (V1 OCT 17)</span>
+        <span>TTY: 2</span>
+        <span>INPUT: <span id="input-buffer"></span><span class="cursor"></span></span>
+    </div>
+
+</div>
+
+<script>
+    // --- KEYBOARD NAVIGATION SCRIPT ---
+    const keyMap = {
+        '0': 'back-link',
+        '00': 'back-link'
+    };
+
+    let buffer = "";
+    let bufferTimeout;
+    const displayElement = document.getElementById('input-buffer');
+
+    document.addEventListener('keydown', function(event) {
+        if (!/^\d$/.test(event.key)) return;
+        buffer += event.key;
+        displayElement.textContent = buffer;
+        clearTimeout(bufferTimeout);
+
+        if (keyMap[buffer]) {
+            setTimeout(() => {
+                document.getElementById(keyMap[buffer]).click();
+                resetBuffer();
+            }, 150);
+        } else if (buffer.length >= 2) {
+            setTimeout(resetBuffer, 500);
+        } else {
+            bufferTimeout = setTimeout(resetBuffer, 2000);
+        }
+    });
+
+    function resetBuffer() {
+        buffer = "";
+        displayElement.textContent = "";
+    }
+</script>
+
+</body>
+</html>
