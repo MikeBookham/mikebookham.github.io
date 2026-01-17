@@ -107,14 +107,16 @@
             transition: all 0.1s;
         }
 
-        a:hover {
+        a:hover, a:focus {
             background-color: var(--terminal-green);
             color: #000;
             cursor: pointer;
-            padding-left: 10px; /* Slight movement on hover */
+            padding-left: 10px;
+            outline: none;
+            font-weight: bold;
         }
 
-        /* Blinking Animation for Initializing status */
+        /* Blinking Animation */
         .blink {
             animation: pulse 2s infinite;
         }
@@ -143,6 +145,7 @@
             background-color: var(--terminal-green);
             animation: blink 1s step-end infinite;
             vertical-align: sub;
+            margin-left: 2px;
         }
 
         @keyframes blink {
@@ -167,35 +170,35 @@
         <tr>
             <td class="key-col">01</td>
             <td class="module-col">
-                <a href="linux-commands.html">LINUX COMMAND DATABASE</a>
+                <a href="linux-commands.html" id="link-01">LINUX COMMAND DATABASE</a>
             </td>
             <td class="status-col">READY</td>
         </tr>
         <tr>
             <td class="key-col">02</td>
             <td class="module-col">
-                <a href="#">NETWORK TOPOLOGY MAP</a>
+                <a href="#" id="link-02">NETWORK TOPOLOGY MAP</a>
             </td>
             <td class="status-col blink">INITIALIZING</td>
         </tr>
         <tr>
             <td class="key-col">03</td>
             <td class="module-col">
-                <a href="#">USER ACCESS LOGS</a>
+                <a href="#" id="link-03">USER ACCESS LOGS</a>
             </td>
             <td class="status-col blink">INITIALIZING</td>
         </tr>
         <tr>
             <td class="key-col">04</td>
             <td class="module-col">
-                <a href="#">KERNEL DIAGNOSTICS</a>
+                <a href="#" id="link-04">KERNEL DIAGNOSTICS</a>
             </td>
             <td class="status-col blink">INITIALIZING</td>
         </tr>
         <tr>
             <td class="key-col">99</td>
             <td class="module-col">
-                <a href="#" onclick="alert('SYSTEM LOGOUT: GOODBYE.')">TERMINATE SESSION</a>
+                <a href="#" id="link-99" onclick="alert('SYSTEM LOGOUT: GOODBYE.')">TERMINATE SESSION</a>
             </td>
             <td class="status-col"></td>
         </tr>
@@ -204,10 +207,66 @@
     <div class="status-bar">
         <span>USER: NUMBER SIX</span>
         <span>TTY: 0</span>
-        <span>INPUT REQUIRED <span class="cursor"></span></span>
+        <span>INPUT: <span id="input-buffer"></span><span class="cursor"></span></span>
     </div>
 
 </div>
+
+<script>
+    // --- KEYBOARD NAVIGATION SCRIPT ---
+
+    // Map keys to element IDs
+    // Handles single digits (1) and double digits (01)
+    const keyMap = {
+        '1': 'link-01',
+        '01': 'link-01',
+        '2': 'link-02',
+        '02': 'link-02',
+        '3': 'link-03',
+        '03': 'link-03',
+        '4': 'link-04',
+        '04': 'link-04',
+        '99': 'link-99'
+    };
+
+    let buffer = "";
+    let bufferTimeout;
+    const displayElement = document.getElementById('input-buffer');
+
+    document.addEventListener('keydown', function(event) {
+        // Only accept numbers
+        if (!/^\d$/.test(event.key)) return;
+
+        // Add key to buffer
+        buffer += event.key;
+        
+        // Update the screen
+        displayElement.textContent = buffer;
+
+        // Clear existing timeout (if user is typing fast)
+        clearTimeout(bufferTimeout);
+
+        // Check if buffer matches a known command
+        if (keyMap[buffer]) {
+            // Visual feedback delay (150ms) to feel like a computer processing
+            setTimeout(() => {
+                document.getElementById(keyMap[buffer]).click();
+                resetBuffer();
+            }, 150);
+        } else if (buffer.length >= 2) {
+            // If buffer is 2 digits and no match, reset
+            setTimeout(resetBuffer, 500);
+        } else {
+            // Set a timeout to clear buffer if user stops typing
+            bufferTimeout = setTimeout(resetBuffer, 2000);
+        }
+    });
+
+    function resetBuffer() {
+        buffer = "";
+        displayElement.textContent = "";
+    }
+</script>
 
 </body>
 </html>
