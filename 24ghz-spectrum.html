@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM 3270 // 2.4GHZ WLAN SPECTRUM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --terminal-green: #33ff33; /* Standard Green */
+            --terminal-bg: #000000;    /* Pure Black */
+            --border-dim: #1a4d1a;
+        }
+
+        body {
+            background-color: #111;
+            margin: 0;
+            padding: 20px;
+            font-family: 'VT323', monospace;
+            display: flex;
+            justify-content: center;
+        }
+
+        .terminal-container {
+            width: 100%;
+            max-width: 1200px;
+            background-color: var(--terminal-bg);
+            border: 4px solid #333;
+            padding: 20px;
+            box-shadow: 0 0 0 2px #000; /* sharp outline */
+            position: relative;
+        }
+
+        /* NAVIGATION LINK STYLING */
+        .nav-header {
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #1a331a;
+            padding-bottom: 10px;
+        }
+
+        a.back-link {
+            color: var(--terminal-green);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 2px 5px;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        a.back-link:hover, a.back-link:focus {
+            background-color: var(--terminal-green);
+            color: #000;
+            cursor: pointer;
+            font-weight: bold;
+            outline: none;
+        }
+
+        h1 {
+            color: var(--terminal-green);
+            text-align: center;
+            border-bottom: 2px solid var(--terminal-green);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: normal;
+            letter-spacing: 2px;
+            text-shadow: none;
+            margin-top: 10px;
+        }
+
+        h2 {
+            background-color: var(--terminal-green);
+            color: #000;
+            padding: 4px 10px;
+            margin-top: 35px;
+            margin-bottom: 5px;
+            display: inline-block;
+            text-transform: uppercase;
+            font-weight: normal;
+            font-size: 1.4rem;
+            text-shadow: none;
+        }
+
+        /* DATA TABLES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        th {
+            text-align: left;
+            border-bottom: 2px solid var(--border-dim);
+            padding: 8px 5px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: normal;
+            font-size: 1.2rem;
+            text-shadow: none;
+        }
+
+        td {
+            padding: 4px 5px;
+            border-bottom: 1px solid #1a1a1a;
+            font-size: 1.2rem;
+            text-shadow: none;
+            vertical-align: top;
+        }
+
+        /* Column 1: Highlighted */
+        td:first-child {
+            color: #fff;
+            font-weight: normal;
+            width: 15%;
+            white-space: nowrap;
+        }
+
+        /* General Text Color */
+        td {
+            color: var(--terminal-green);
+        }
+
+        /* Matrix Table Specifics */
+        .matrix-table td:first-child {
+            width: 15%;
+        }
+
+        /* Section for Notes/References (Lists) */
+        ul {
+            list-style-type: square;
+            color: var(--terminal-green);
+            padding-left: 20px;
+            font-size: 1.2rem;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        
+        .alert-text {
+            color: #fff;
+            background-color: #331111; /* Subtle red bg for alerts */
+            padding: 2px 5px;
+        }
+
+        .status-bar {
+            margin-top: 40px;
+            border-top: 1px solid var(--terminal-green);
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--terminal-green);
+            font-size: 1.1rem;
+        }
+
+        /* Blinking Block Cursor */
+        .cursor {
+            display: inline-block;
+            width: 12px;
+            height: 20px;
+            background-color: var(--terminal-green);
+            animation: blink 1s step-end infinite;
+            vertical-align: sub;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="terminal-container">
+    
+    <div class="nav-header">
+        <a href="index.html" class="back-link" id="back-link">[0] &lt;&lt; RETURN TO INDEX</a>
+    </div>
+
+    <h1>UK/EU 2.4GHZ WLAN SPECTRUM</h1>
+    
+    <h2>01. FREQUENCY ALLOCATION (ISM BAND)</h2>
+    <p style="color: #fff; margin-bottom: 0;">RANGE: 2.400 - 2.4835 GHz // CHANNEL SPACING: 5 MHz</p>
+    <table>
+        <tr><th>CHANNEL ID</th><th>CENTRE FREQ (MHz)</th><th>REGION AVAILABILITY</th></tr>
+        <tr><td>01</td><td>2412</td><td>Global</td></tr>
+        <tr><td>02 - 10</td><td>2417 - 2457</td><td>Global</td></tr>
+        <tr><td>11</td><td>2462</td><td>Global</td></tr>
+        <tr><td>12</td><td>2467</td><td>UK / Europe / Japan (Restricted in US)</td></tr>
+        <tr><td>13</td><td>2472</td><td>UK / Europe / Japan (Restricted in US)</td></tr>
+        <tr><td>14</td><td>2484</td><td><span class="alert-text">** JAPAN ONLY (802.11b)</span></td></tr>
+    </table>
+
+    <h2>02. NON-OVERLAPPING SCHEMES</h2>
+    <p style="color: #fff; margin-bottom: 0;">20MHZ WIDTH // ESSENTIAL FOR INTERFERENCE AVOIDANCE</p>
+    <table class="matrix-table">
+        <tr>
+            <th>SCHEME</th>
+            <th>CHANNEL SET</th>
+            <th>NOTES</th>
+        </tr>
+        <tr>
+            <td>STANDARD (3 CH)</td>
+            <td>1, 6, 11</td>
+            <td>Most common globally. Ensures zero overlap.</td>
+        </tr>
+        <tr>
+            <td>HIGH DENSITY (4 CH)</td>
+            <td>1, 5, 9, 13</td>
+            <td>Valid in UK/EU only. Requires clean spectrum.</td>
+        </tr>
+    </table>
+
+    <h2>03. REGULATIONS & POWER LIMITS</h2>
+    <table>
+        <tr><th>PARAMETER</th><th>LIMIT (UK/ETSI)</th><th>NOTES</th></tr>
+        <tr><td>Max EIRP</td><td>100mW (20dBm)</td><td>Includes antenna gain.</td></tr>
+        <tr><td>Usage</td><td>Indoor & Outdoor</td><td>No specific license required.</td></tr>
+        <tr><td>DFS</td><td>Not Required</td><td>Unlike 5GHz, no radar avoidance needed.</td></tr>
+    </table>
+
+    <h2>04. CHANNEL WIDTH & BONDING</h2>
+    <table class="matrix-table">
+        <tr>
+            <th>WIDTH</th>
+            <th>RECOMMENDATION</th>
+            <th>STATUS</th>
+        </tr>
+        <tr>
+            <td>20 MHz</td>
+            <td>HIGHLY RECOMMENDED</td>
+            <td>Default standard. Maximizes non-overlapping channels.</td>
+        </tr>
+        <tr>
+            <td>40 MHz</td>
+            <td><span class="alert-text">NOT RECOMMENDED</span></td>
+            <td>Consumes 80% of entire band. High risk of interference (CCI/ACI). Leaves only 1 non-overlapping channel.</td>
+        </tr>
+    </table>
+
+    <h2>05. COMMON INTERFERENCE SOURCES</h2>
+    <ul>
+        <li><strong>MICROWAVE OVENS:</strong> Operate heavily in 2.4GHz. Causes massive packet loss.</li>
+        <li><strong>BLUETOOTH:</strong> Frequency hops across the entire band (low power but pervasive).</li>
+        <li><strong>ZIGBEE / IOT:</strong> Smart bulbs, sensors often use 2.4GHz (Channels 11-26 Zigbee overlap WiFi 1-13).</li>
+        <li><strong>AV SENDERS:</strong> Analog wireless video cameras often jam the entire band.</li>
+    </ul>
+
+    <div class="status-bar">
+        <span>SOURCE: UK INTERFACE REQ 2030</span>
+        <span>TTY: 3</span>
+        <span>INPUT: <span id="input-buffer"></span><span class="cursor"></span></span>
+    </div>
+
+</div>
+
+<script>
+    // --- KEYBOARD NAVIGATION SCRIPT ---
+    const keyMap = {
+        '0': 'back-link',
+        '00': 'back-link'
+    };
+
+    let buffer = "";
+    let bufferTimeout;
+    const displayElement = document.getElementById('input-buffer');
+
+    document.addEventListener('keydown', function(event) {
+        if (!/^\d$/.test(event.key)) return;
+        buffer += event.key;
+        displayElement.textContent = buffer;
+        clearTimeout(bufferTimeout);
+
+        if (keyMap[buffer]) {
+            setTimeout(() => {
+                document.getElementById(keyMap[buffer]).click();
+                resetBuffer();
+            }, 150);
+        } else if (buffer.length >= 2) {
+            setTimeout(resetBuffer, 500);
+        } else {
+            bufferTimeout = setTimeout(resetBuffer, 2000);
+        }
+    });
+
+    function resetBuffer() {
+        buffer = "";
+        displayElement.textContent = "";
+    }
+</script>
+
+</body>
+</html>
