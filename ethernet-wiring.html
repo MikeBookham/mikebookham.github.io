@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM 3270 // ETHERNET WIRING STANDARDS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --terminal-green: #33ff33; /* Standard Green */
+            --terminal-bg: #000000;    /* Pure Black */
+            --border-dim: #1a4d1a;
+        }
+
+        body {
+            background-color: #111;
+            margin: 0;
+            padding: 20px;
+            font-family: 'VT323', monospace;
+            display: flex;
+            justify-content: center;
+        }
+
+        .terminal-container {
+            width: 100%;
+            max-width: 1200px;
+            background-color: var(--terminal-bg);
+            border: 4px solid #333;
+            padding: 20px;
+            box-shadow: 0 0 0 2px #000; /* sharp outline */
+            position: relative;
+        }
+
+        /* NAVIGATION LINK STYLING */
+        .nav-header {
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #1a331a;
+            padding-bottom: 10px;
+        }
+
+        a.back-link {
+            color: var(--terminal-green);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 2px 5px;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        a.back-link:hover, a.back-link:focus {
+            background-color: var(--terminal-green);
+            color: #000;
+            cursor: pointer;
+            font-weight: bold;
+            outline: none;
+        }
+
+        h1 {
+            color: var(--terminal-green);
+            text-align: center;
+            border-bottom: 2px solid var(--terminal-green);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: normal;
+            letter-spacing: 2px;
+            text-shadow: none;
+            margin-top: 10px;
+        }
+
+        h2 {
+            background-color: var(--terminal-green);
+            color: #000;
+            padding: 4px 10px;
+            margin-top: 35px;
+            margin-bottom: 5px;
+            display: inline-block;
+            text-transform: uppercase;
+            font-weight: normal;
+            font-size: 1.4rem;
+            text-shadow: none;
+        }
+
+        /* DATA TABLES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        th {
+            text-align: left;
+            border-bottom: 2px solid var(--border-dim);
+            padding: 8px 5px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: normal;
+            font-size: 1.2rem;
+            text-shadow: none;
+        }
+
+        td {
+            padding: 4px 5px;
+            border-bottom: 1px solid #1a1a1a;
+            font-size: 1.2rem;
+            text-shadow: none;
+            vertical-align: top;
+        }
+
+        /* Column 1: Highlighted */
+        td:first-child {
+            color: #fff;
+            font-weight: normal;
+            width: 10%;
+            white-space: nowrap;
+        }
+
+        /* General Text Color */
+        td {
+            color: var(--terminal-green);
+        }
+
+        /* Pinout Visual Representation */
+        .pinout-visual {
+            font-family: 'VT323', monospace;
+            white-space: pre;
+            color: #fff;
+            background: #111;
+            padding: 15px;
+            border: 1px dashed var(--terminal-green);
+            margin: 20px 0;
+            line-height: 1.2;
+            font-size: 1.1rem;
+        }
+
+        .alert-text {
+            color: #fff;
+            background-color: #331111;
+            padding: 2px 5px;
+        }
+
+        .status-bar {
+            margin-top: 40px;
+            border-top: 1px solid var(--terminal-green);
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--terminal-green);
+            font-size: 1.1rem;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 12px;
+            height: 20px;
+            background-color: var(--terminal-green);
+            animation: blink 1s step-end infinite;
+            vertical-align: sub;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="terminal-container">
+    
+    <div class="nav-header">
+        <a href="index.html" class="back-link" id="back-link">[0] &lt;&lt; RETURN TO INDEX</a>
+    </div>
+
+    <h1>ETHERNET WIRING STANDARDS (RJ45)</h1>
+    
+    <div class="pinout-visual">
+   RJ45 PLUG (CLIP FACING AWAY FROM YOU)
+   =====================================
+   |  1   2   3   4   5   6   7   8  |
+   |  |   |   |   |   |   |   |   |  |  
+   | [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] |
+   \_________________________________/
+            GOLD PINS UP
+    </div>
+
+    <h2>01. T568A STANDARD</h2>
+    <p style="color: #fff; margin-bottom: 0;">PRIMARY USAGE: US FEDERAL GOV / RESIDENTIAL / CANADA</p>
+    <table>
+        <tr><th>PIN</th><th>WIRE COLOR</th><th>PAIR NO.</th><th>SIGNAL (10/100)</th></tr>
+        <tr><td>1</td><td>WHITE / GREEN</td><td>Pair 3</td><td>Transmit +</td></tr>
+        <tr><td>2</td><td>GREEN</td><td>Pair 3</td><td>Transmit -</td></tr>
+        <tr><td>3</td><td>WHITE / ORANGE</td><td>Pair 2</td><td>Receive +</td></tr>
+        <tr><td>4</td><td>BLUE</td><td>Pair 1</td><td>Unused</td></tr>
+        <tr><td>5</td><td>WHITE / BLUE</td><td>Pair 1</td><td>Unused</td></tr>
+        <tr><td>6</td><td>ORANGE</td><td>Pair 2</td><td>Receive -</td></tr>
+        <tr><td>7</td><td>WHITE / BROWN</td><td>Pair 4</td><td>Unused</td></tr>
+        <tr><td>8</td><td>BROWN</td><td>Pair 4</td><td>Unused</td></tr>
+    </table>
+
+    <h2>02. T568B STANDARD</h2>
+    <p style="color: #fff; margin-bottom: 0;">PRIMARY USAGE: COMMERCIAL / BUSINESS / UK / MOST COMMON</p>
+    <table>
+        <tr><th>PIN</th><th>WIRE COLOR</th><th>PAIR NO.</th><th>SIGNAL (10/100)</th></tr>
+        <tr><td>1</td><td>WHITE / ORANGE</td><td>Pair 2</td><td>Transmit +</td></tr>
+        <tr><td>2</td><td>ORANGE</td><td>Pair 2</td><td>Transmit -</td></tr>
+        <tr><td>3</td><td>WHITE / GREEN</td><td>Pair 3</td><td>Receive +</td></tr>
+        <tr><td>4</td><td>BLUE</td><td>Pair 1</td><td>Unused</td></tr>
+        <tr><td>5</td><td>WHITE / BLUE</td><td>Pair 1</td><td>Unused</td></tr>
+        <tr><td>6</td><td>GREEN</td><td>Pair 3</td><td>Receive -</td></tr>
+        <tr><td>7</td><td>WHITE / BROWN</td><td>Pair 4</td><td>Unused</td></tr>
+        <tr><td>8</td><td>BROWN</td><td>Pair 4</td><td>Unused</td></tr>
+    </table>
+
+    <h2>03. CABLE TYPES & USAGE</h2>
+    <table>
+        <tr><th>CABLE TYPE</th><th>END A</th><th>END B</th><th>TYPICAL USE CASE</th></tr>
+        <tr><td>STRAIGHT-THROUGH</td><td>T568B</td><td>T568B</td><td>PC to Switch / Switch to Router (Most Common)</td></tr>
+        <tr><td>STRAIGHT-THROUGH</td><td>T568A</td><td>T568A</td><td>PC to Switch (If building wired for A)</td></tr>
+        <tr><td>CROSSOVER</td><td>T568A</td><td>T568B</td><td>Switch to Switch / PC to PC (Legacy / No Auto-MDIX)</td></tr>
+    </table>
+
+    <h2>04. NOTES</h2>
+    <ul style="color: var(--terminal-green); list-style: square; padding-left: 20px; font-size: 1.2rem;">
+        <li><strong>ELECTRICAL:</strong> There is NO electrical performance difference between A and B. Both work identically.</li>
+        <li><strong>CONSISTENCY:</strong> The most important rule is to pick one standard and use it on BOTH ends of the cable.</li>
+        <li><strong>AUTO-MDIX:</strong> Modern switches (Gigabit+) detect the cable type automatically, making Crossover cables largely obsolete.</li>
+        <li><strong>POE:</strong> Power over Ethernet uses the same pins but injects DC voltage. Standard wiring is required for safe operation.</li>
+    </ul>
+
+    <div class="status-bar">
+        <span>MODULE: PHYSICAL LAYER</span>
+        <span>TTY: 4</span>
+        <span>INPUT: <span id="input-buffer"></span><span class="cursor"></span></span>
+    </div>
+
+</div>
+
+<script>
+    // --- KEYBOARD NAVIGATION SCRIPT ---
+    const keyMap = {
+        '0': 'back-link',
+        '00': 'back-link'
+    };
+
+    let buffer = "";
+    let bufferTimeout;
+    const displayElement = document.getElementById('input-buffer');
+
+    document.addEventListener('keydown', function(event) {
+        if (!/^\d$/.test(event.key)) return;
+        buffer += event.key;
+        displayElement.textContent = buffer;
+        clearTimeout(bufferTimeout);
+
+        if (keyMap[buffer]) {
+            setTimeout(() => {
+                document.getElementById(keyMap[buffer]).click();
+                resetBuffer();
+            }, 150);
+        } else if (buffer.length >= 2) {
+            setTimeout(resetBuffer, 500);
+        } else {
+            bufferTimeout = setTimeout(resetBuffer, 2000);
+        }
+    });
+
+    function resetBuffer() {
+        buffer = "";
+        displayElement.textContent = "";
+    }
+</script>
+
+</body>
+</html>
