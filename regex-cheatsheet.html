@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM 3270 // REGEX CHEAT SHEET</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --terminal-green: #33ff33; /* Standard Green */
+            --terminal-bg: #000000;    /* Pure Black */
+            --border-dim: #1a4d1a;
+        }
+
+        body {
+            background-color: #111;
+            margin: 0;
+            padding: 20px;
+            font-family: 'VT323', monospace;
+            display: flex;
+            justify-content: center;
+        }
+
+        .terminal-container {
+            width: 100%;
+            max-width: 1200px;
+            background-color: var(--terminal-bg);
+            border: 4px solid #333;
+            padding: 20px;
+            box-shadow: 0 0 0 2px #000; /* sharp outline */
+            position: relative;
+        }
+
+        /* NAVIGATION LINK STYLING */
+        .nav-header {
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #1a331a;
+            padding-bottom: 10px;
+        }
+
+        a.back-link {
+            color: var(--terminal-green);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 2px 5px;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        a.back-link:hover, a.back-link:focus {
+            background-color: var(--terminal-green);
+            color: #000;
+            cursor: pointer;
+            font-weight: bold;
+            outline: none;
+        }
+
+        h1 {
+            color: var(--terminal-green);
+            text-align: center;
+            border-bottom: 2px solid var(--terminal-green);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: normal;
+            letter-spacing: 2px;
+            text-shadow: none;
+            margin-top: 10px;
+        }
+
+        h2 {
+            background-color: var(--terminal-green);
+            color: #000;
+            padding: 4px 10px;
+            margin-top: 35px;
+            margin-bottom: 5px;
+            display: inline-block;
+            text-transform: uppercase;
+            font-weight: normal;
+            font-size: 1.4rem;
+            text-shadow: none;
+        }
+
+        /* DATA TABLES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        th {
+            text-align: left;
+            border-bottom: 2px solid var(--border-dim);
+            padding: 8px 5px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: normal;
+            font-size: 1.2rem;
+            text-shadow: none;
+        }
+
+        td {
+            padding: 4px 5px;
+            border-bottom: 1px solid #1a1a1a;
+            font-size: 1.2rem;
+            text-shadow: none;
+            vertical-align: top;
+        }
+
+        /* Column 1: Highlighted (The Regex Pattern) */
+        td:first-child {
+            color: #fff;
+            font-weight: normal;
+            width: 15%;
+            white-space: nowrap;
+            font-family: 'VT323', monospace;
+        }
+
+        /* General Text Color */
+        td {
+            color: var(--terminal-green);
+        }
+        
+        /* Explanation Column */
+        td:nth-child(2) {
+             width: 45%;
+        }
+
+        /* Highlight specific regex parts */
+        .hl {
+            color: #fff;
+            background-color: #331111;
+            padding: 0 4px;
+        }
+
+        .status-bar {
+            margin-top: 40px;
+            border-top: 1px solid var(--terminal-green);
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--terminal-green);
+            font-size: 1.1rem;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 12px;
+            height: 20px;
+            background-color: var(--terminal-green);
+            animation: blink 1s step-end infinite;
+            vertical-align: sub;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="terminal-container">
+    
+    <div class="nav-header">
+        <a href="index.html" class="back-link" id="back-link">[0] &lt;&lt; RETURN TO INDEX</a>
+    </div>
+
+    <h1>REGULAR EXPRESSIONS (PCRE)</h1>
+    
+    <h2>01. ANCHORS & BOUNDARIES</h2>
+    <table>
+        <tr><th>PATTERN</th><th>DESCRIPTION</th><th>EXAMPLE</th></tr>
+        <tr><td>^</td><td>Start of string (or line in multiline)</td><td>^Start</td></tr>
+        <tr><td>$</td><td>End of string (or line in multiline)</td><td>End$</td></tr>
+        <tr><td>\b</td><td>Word boundary</td><td>\bword\b</td></tr>
+        <tr><td>\B</td><td>Not a word boundary</td><td>\Bword\B</td></tr>
+    </table>
+
+    <h2>02. CHARACTER CLASSES</h2>
+    <table>
+        <tr><th>PATTERN</th><th>DESCRIPTION</th><th>EQUIVALENT</th></tr>
+        <tr><td>.</td><td>Any character (except newline)</td><td></td></tr>
+        <tr><td>\d</td><td>Digit</td><td>[0-9]</td></tr>
+        <tr><td>\D</td><td>Not a digit</td><td>[^0-9]</td></tr>
+        <tr><td>\w</td><td>Word character</td><td>[a-zA-Z0-9_]</td></tr>
+        <tr><td>\W</td><td>Not a word character</td><td>[^a-zA-Z0-9_]</td></tr>
+        <tr><td>\s</td><td>Whitespace (space, tab, newline)</td><td>[\t\r\n\f]</td></tr>
+        <tr><td>\S</td><td>Not whitespace</td><td>[^\t\r\n\f]</td></tr>
+        <tr><td>[abc]</td><td>Character set (match a, b, or c)</td><td></td></tr>
+        <tr><td>[^abc]</td><td>Negated set (match anything EXCEPT a, b, c)</td><td></td></tr>
+        <tr><td>[a-z]</td><td>Range (match a through z)</td><td></td></tr>
+    </table>
+
+    <h2>03. QUANTIFIERS</h2>
+    <table>
+        <tr><th>PATTERN</th><th>DESCRIPTION</th><th>MEANING</th></tr>
+        <tr><td>*</td><td>0 or more times</td><td>{0,}</td></tr>
+        <tr><td>+</td><td>1 or more times</td><td>{1,}</td></tr>
+        <tr><td>?</td><td>0 or 1 time (Optional)</td><td>{0,1}</td></tr>
+        <tr><td>{n}</td><td>Exactly n times</td><td></td></tr>
+        <tr><td>{n,}</td><td>n or more times</td><td></td></tr>
+        <tr><td>{n,m}</td><td>Between n and m times</td><td></td></tr>
+        <tr><td>*?</td><td>Lazy match (match as little as possible)</td><td></td></tr>
+    </table>
+
+    <h2>04. GROUPS & FLAGS</h2>
+    <table>
+        <tr><th>PATTERN</th><th>DESCRIPTION</th><th>EXAMPLE</th></tr>
+        <tr><td>(abc)</td><td>Capture group</td><td>\1 (backreference)</td></tr>
+        <tr><td>(?:abc)</td><td>Non-capturing group</td><td>Cannot reference</td></tr>
+        <tr><td>(?=abc)</td><td>Positive Lookahead (Followed by)</td><td>d(?=r) matches d in dr</td></tr>
+        <tr><td>(?!abc)</td><td>Negative Lookahead (Not followed by)</td><td>d(?!r) matches d in da</td></tr>
+        <tr><td>g</td><td>Global flag (match all occurrences)</td><td>/search/g</td></tr>
+        <tr><td>i</td><td>Case insensitive flag</td><td>/Search/i</td></tr>
+        <tr><td>m</td><td>Multiline flag (^ and $ match lines)</td><td>/search/m</td></tr>
+    </table>
+
+    <h2>05. COMMON PATTERNS</h2>
+    <table>
+        <tr><th>USE CASE</th><th>REGEX PATTERN</th></tr>
+        <tr><td>EMAIL ADDRESS</td><td>^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$</td></tr>
+        <tr><td>IP ADDRESS (v4)</td><td>^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$</td></tr>
+        <tr><td>DATE (YYYY-MM-DD)</td><td>^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$</td></tr>
+        <tr><td>HTML TAG</td><td>&lt;([a-z]+)([^&lt;]+)*(?:&gt;(.+?)&lt;/\1&gt;|/&gt;)</td></tr>
+        <tr><td>HEX COLOR</td><td>^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$</td></tr>
+    </table>
+
+    <div class="status-bar">
+        <span>MODULE: TEXT PROCESSING</span>
+        <span>TTY: 5</span>
+        <span>INPUT: <span id="input-buffer"></span><span class="cursor"></span></span>
+    </div>
+
+</div>
+
+<script>
+    // --- KEYBOARD NAVIGATION SCRIPT ---
+    const keyMap = {
+        '0': 'back-link',
+        '00': 'back-link'
+    };
+
+    let buffer = "";
+    let bufferTimeout;
+    const displayElement = document.getElementById('input-buffer');
+
+    document.addEventListener('keydown', function(event) {
+        if (!/^\d$/.test(event.key)) return;
+        buffer += event.key;
+        displayElement.textContent = buffer;
+        clearTimeout(bufferTimeout);
+
+        if (keyMap[buffer]) {
+            setTimeout(() => {
+                document.getElementById(keyMap[buffer]).click();
+                resetBuffer();
+            }, 150);
+        } else if (buffer.length >= 2) {
+            setTimeout(resetBuffer, 500);
+        } else {
+            bufferTimeout = setTimeout(resetBuffer, 2000);
+        }
+    });
+
+    function resetBuffer() {
+        buffer = "";
+        displayElement.textContent = "";
+    }
+</script>
+
+</body>
+</html>
